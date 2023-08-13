@@ -3,9 +3,9 @@ import * as draw from './render.js'
 import {Particle} from './particleHandler.js'
 import {window_height, window_width} from './settings.js';
 
-var g = new Vec(0, -0.01)
+var g = new Vec(0, 0)
 
-let pCount = 90
+let pCount = 30
 
 let pList = []
 for (let i = 0; i < pCount/3; i++) {
