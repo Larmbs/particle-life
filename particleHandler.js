@@ -33,7 +33,7 @@ class Particle {
         
         this.speed.subtract(new Vec(this.gravity.x * this.w, this.gravity.y * this.w))
         this.pColl(pList)
-        this.wallBounce()
+        this.wallTel()
 
         this.a = Math.atan2(this.speed.x, -this.speed.y)
 
