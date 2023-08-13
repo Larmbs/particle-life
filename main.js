@@ -1,44 +1,56 @@
 import {Vec} from './vector2d.js'
 import * as draw from './render.js'
 import {Particle} from './particleHandler.js'
-import {window_height, window_width} from './settings.js';
+import {hwindowSize, simB} from './settings.js'
 
 var g = new Vec(0, 0)
-
-let pCount = 30
-
+let pCount = 190
 let pList = []
 for (let i = 0; i < pCount/3; i++) {
-    pList.push(new Particle(Math.random() * (window_width - 100) - (window_width-100)/2, Math.random() * (window_height - 100) - (window_height-100)/2, Math.random() * 20 - 10, Math.random() * 20 - 10, g, 1, 'blue', 'blue', 20))
+    pList.push(new Particle(new Vec(simB.x, simB.y, true), new Vec(-10, 10, true), g, 1, [150,0,0], 'none', 10, 0, 2))
 }
 for (let i = 0; i < pCount/3; i++) {
-    pList.push(new Particle(Math.random() * (window_width - 100) - (window_width-100)/2, Math.random() * (window_height - 100) - (window_height-100)/2, Math.random() * 20 - 10, Math.random() * 20 - 10, g, 1, 'red', 'blue', 10))
+    pList.push(new Particle(new Vec(simB.x, simB.y, true), new Vec(-10, 10, true), g, 2, [0,0,150], 'none', 10, 0, 2))
 }
 for (let i = 0; i < pCount/3; i++) {
-    pList.push(new Particle(Math.random() * (window_width - 100) - (window_width-100)/2, Math.random() * (window_height - 100) - (window_height-100)/2, Math.random() * 20 - 10, Math.random() * 20 - 10, g, 1, 'green', 'blue', 15))
+    pList.push(new Particle(new Vec(simB.x, simB.y, true), new Vec(-10, 10, true), g, 3, [0,150,0], 'none', 10, 0, 2))
 }
-
-
-
-
-
 
 let count = 0
+var msPrev = window.performance.now()
+
+const msPerFrame = 1000 / 60
+let frames = 0
+let frameRate = 0
 function mainLoop() {
     count++
     draw.Clear()
     
     for (let i = 0; i < pList.length; i++) {
-        pList[i].update(pList)
+        if (count % 5 === 0) {
+            pList[i].update(pList, false)
+        } else {
+            pList[i].update(pList, false)
+        } 
     }
 
-    if (count % 100 === 0.5) {
-        g.x = Math.random() - 0.5
-        g.y = Math.random() - 0.5
-    }
+    window.requestAnimationFrame(mainLoop)
+    const msNow = window.performance.now()
+    const msPassed = msNow - msPrev
+
+    if (msPassed < msPerFrame) return
+
+    const excessTime = msPassed % msPerFrame
+    msPrev = msNow - excessTime
+    draw.DrawId(frameRate, -hwindowSize.x, -hwindowSize.y + 50)
+    frames++
     
-
-    requestAnimationFrame(mainLoop)
 }
+
+setInterval(() => {
+    frameRate = frames
+    
+    frames = 0
+  }, 1000)
 
 mainLoop()

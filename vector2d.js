@@ -1,7 +1,17 @@
+import {random} from "./standardLib.js"
+
 class Vec {
-    constructor(x, y) {
-        this.x = x
-        this.y = y
+    constructor(x, y, rand) {
+        if (rand) {
+            this.x = random(-x, x)
+            this.y = random(-y, y)
+            this.type = 'v2d'
+        } else {
+            this.x = x
+            this.y = y
+            this.type = 'v2d' 
+        }
+    
     }
 
     equal(e) {
@@ -33,6 +43,16 @@ class Vec {
     divide(vec) {
         this.x /= vec.x
         this.y /= vec.y
+    }
+    
+    sAdd(n) {
+        this.x += n
+        this.y += n
+    }
+
+    sSubtract(n) {
+        this.x -= n
+        this.y -= n
     }
 
     sMultiply(n) {
@@ -77,10 +97,23 @@ class Vec {
         return (this.x * vec.x) + (this.y * vec.y)
     }
 
+    similarity(vec) {
+        return
+    }
+
     perp() {
         let x = this.x
         this.x = -this.y
         this.y = x
+    }
+
+    angle() {
+
+    }
+
+    returnNorm() {
+        let m = this.magnitude()
+        return new Vec(this.x / m, this.y / m)
     }
 
 
