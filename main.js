@@ -4,7 +4,7 @@ import {Particle} from './particleHandler.js'
 import {hwindowSize, simB} from './settings.js'
 
 var g = new Vec(0, 0)
-let pCount = 190
+let pCount = 60
 let pList = []
 for (let i = 0; i < pCount/3; i++) {
     pList.push(new Particle(new Vec(simB.x, simB.y, true), new Vec(-10, 10, true), g, 1, [150,0,0], 'none', 10, 0, 2))
