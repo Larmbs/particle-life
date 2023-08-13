@@ -3,7 +3,7 @@ import * as draw from './render.js'
 import {Particle} from './particleHandler.js'
 import {window_height, window_width} from './settings.js';
 
-var g = new Vec(0, 0)
+var g = new Vec(0, -0.5)
 
 let pCount = 50
 
